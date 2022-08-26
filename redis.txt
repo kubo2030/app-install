@@ -46,3 +46,20 @@ requirepass PassWord      # 配置密码
 
 8.测试启动是否正常
 ./src/redis-server /etc/redis.conf
+
+
+9.使用supervisord进行管理
+
+cat /etc/supervisord.d/redis.ini
+
+[program:redis-server]
+command=/usr/sbin/redis-server /etc/redis.conf
+autostart=true
+autorestart=true
+user=root
+
+10.supervisord使配置生效
+
+supervisorctl reread
+supervisorctl update
+
