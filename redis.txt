@@ -1,4 +1,4 @@
-redis 6.0 编译安装 
+redis 6.2.7 编译安装 
 
 0.系统环境
 Centos 7
@@ -35,6 +35,14 @@ cp src/redis-server /usr/sbin/
 
 7.创建日志目录
 mkdir /var/log/redis
+
+8.修改配置文件
+bind 0.0.0.0                     # 修改监听IP
+port 16879                      # 修改默认端口
+supervised auto               # 修改默认自动适应是否后台运行
+logfile "redis.log"             # 新增日志文件名称
+dir /var/log/redis/            # 配置日志路径和存储路径
+requirepass PassWord      # 配置密码
 
 8.测试启动是否正常
 ./src/redis-server /etc/redis.conf
