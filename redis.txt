@@ -1,0 +1,40 @@
+redis 6.0 编译安装 
+
+0.系统环境
+Centos 7
+
+1.安装依赖
+yum -y install gcc automake autoconf libtool make
+
+
+2.从官网下载最新的包
+https://redis.io/download/
+
+wget https://download.redis.io/releases/redis-6.2.7.tar.gz
+
+
+3.解压
+tar -xf redis-*.tar.gz
+
+4.编译
+
+cd redis
+
+make MALLOC=libc
+
+
+5.优化系统环境变量
+echo 511 > /proc/sys/net/core/somaxconn
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo 'vm.overcommit_memory=1' >>/etc/sysctl.conf
+sysctl -p
+
+6.拷贝配置文件和编译好的启动文件
+cp redis.conf  /etc/
+cp src/redis-server /usr/sbin/
+
+7.创建日志目录
+mkdir /var/log/redis
+
+8.测试启动是否正常
+./src/redis-server /etc/redis.conf
